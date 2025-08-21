@@ -1,14 +1,45 @@
 {
-  "name": "maybank-project",
+  "name": "portfolio-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
+  "description": "Backend API for Portfolio Management Dashboard",
+  "main": "dist/server.js",
   "scripts": {
-    "build": "tsc"
+    "start": "node dist/server.js",
+    "dev": "nodemon src/server.ts",
+    "build": "tsc",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:seed": "ts-node prisma/seed.ts"
   },
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "joi": "^17.9.2",
+    "prisma": "^5.1.1",
+    "@prisma/client": "^5.1.1",
+    "dotenv": "^16.3.1",
+    "winston": "^3.10.0"
+  },
   "devDependencies": {
-    "typescript": "^5.5.3"
+    "@types/node": "^20.4.5",
+    "@types/express": "^4.17.17",
+    "@types/cors": "^2.8.13",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^9.0.2",
+    "typescript": "^5.1.6",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1"
   },
-  "private": true
+  "keywords": [
+    "portfolio",
+    "investment",
+    "dashboard",
+    "api"
+  ],
+  "author": "Portfolio Dashboard Team",
+  "license": "MIT"
 }
