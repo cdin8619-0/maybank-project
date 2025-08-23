@@ -47,3 +47,11 @@ export interface PaginationResponse<T> {
         hasPrev: boolean;
     };
 }
+
+export const InvestmentType = {
+    STOCK: 'STOCK',
+    BOND: 'BOND',
+    MUTUAL_FUND: 'MUTUAL_FUND',
+    ETF: 'ETF',
+    CRYPTOCURRENCY: 'CRYPTOCURRENCY'
+} as const;

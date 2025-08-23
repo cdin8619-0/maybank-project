@@ -18,7 +18,6 @@ const toNumber = (decimal: any): number => {
 
 router.get('/', async (req: AuthRequest, res: Response) => {
     try {
-        // Get all investments with transaction counts
         const investments = await prisma.investment.findMany({
             where: {
                 userId: req.user!.id,
