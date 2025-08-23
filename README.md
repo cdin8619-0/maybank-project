@@ -1,211 +1,253 @@
 # Portfolio Management Dashboard
 
-A full-stack application for managing investment portfolios with user authentication, transaction tracking, and investment management.
+A modern portfolio management application built with React, Node.js, TypeScript, and PostgreSQL. This application provides a comprehensive solution for managing investment portfolios with real-time analytics and transaction tracking.
 
-## Features
-
-- 🔐 JWT-based authentication (login/logout)
-- 📊 Portfolio overview with asset summaries
-- 📈 Investment performance tracking
-- 📋 Transaction history
-- ➕ Add/Edit investments
-- 🐳 Docker containerized deployment
-
-## Tech Stack
-
-- **Frontend:** React 18 + TypeScript + Vite
-- **Backend:** Node.js + Express + TypeScript
-- **Database:** PostgreSQL with Prisma ORM
-- **Authentication:** JWT tokens
-- **Styling:** Tailwind CSS
-- **Containerization:** Docker & Docker Compose
-
-## Project Structure
-
-```
-portfolio-dashboard/
-├── frontend/                 # React frontend
-│   ├── src/
-│   │   ├── components/      # React components
-│   │   ├── pages/          # Page components
-│   │   ├── hooks/          # Custom React hooks
-│   │   ├── services/       # API services
-│   │   ├── types/          # TypeScript types
-│   │   └── utils/          # Utility functions
-│   ├── package.json
-│   └── Dockerfile
-├── backend/                  # Node.js backend
-│   ├── src/
-│   │   ├── routes/         # Express routes
-│   │   ├── middleware/     # Express middleware
-│   │   ├── services/       # Business logic
-│   │   ├── types/          # TypeScript types
-│   │   └── utils/          # Utility functions
-│   ├── prisma/             # Database schema and migrations
-│   ├── package.json
-│   └── Dockerfile
-├── docker-compose.yml        # Multi-container setup
-└── README.md
-```
-
-## Getting Started
+## 🚀 Quick Start with Docker Compose
 
 ### Prerequisites
+- **Docker** (version 20.10 or higher)
+- **Docker Compose** (version 2.0 or higher)
 
-- Docker and Docker Compose
-- Git
+### 🐳 Running the Application
 
-### Installation & Running
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd maybank-project
+   ```
 
-1. **Clone the repository:**
+2. **Start all services using Docker Compose**
+   ```bash
+   # Build and start all services
+   docker-compose up --build -d
+   
+   # Or start without detaching to see logs
+   docker-compose up --build
+   ```
+
+3. **Access the application**
+   - **🌐 Frontend Application**: http://localhost:3000
+   - **🔌 Backend API**: http://localhost:3001
+   - **🗄️ Database**: localhost:5432 (PostgreSQL)
+
+4. **First-time setup**
+   - Navigate to http://localhost:3000
+   - Click "Register" to create your first account
+   - Login and start building your portfolio
+
+### 🛠️ Docker Commands Reference
+
 ```bash
-git clone <your-repo-url>
-cd portfolio-dashboard
+# Start all services
+docker-compose up -d
+
+# Start with rebuild (recommended for first run)
+docker-compose up --build -d
+
+# View running services
+docker-compose ps
+
+# View logs
+docker-compose logs -f
+
+# Stop all services
+docker-compose down
+
+# Stop and remove volumes (database data)
+docker-compose down -v
+
+# Restart a specific service
+docker-compose restart frontend
+docker-compose restart backend
+
+# Rebuild and restart a specific service
+docker-compose up --build frontend -d
 ```
 
-2. **Run with Docker Compose:**
-```bash
-docker-compose up --build
-```
+## 🏗️ Architecture Overview
 
-3. **Access the application:**
-    - Frontend: http://localhost:3000
-    - Backend API: http://localhost:5000
+This application is built using a microservices architecture with Docker containers:
 
-### Development Setup (without Docker)
+- **Frontend Container**: React SPA served by Nginx
+- **Backend Container**: Node.js/Express API with Prisma ORM
+- **Database Container**: PostgreSQL with persistent storage
 
-If you prefer to run locally for development:
+## 🔧 Development Setup (Alternative to Docker)
 
-1. **Backend setup:**
-```bash
-cd backend
-npm install
-npm run dev
-```
+### Backend Setup
 
-2. **Frontend setup:**
-```bash
-cd frontend
-npm install
-npm run dev
-```
+1. **Install dependencies**
+   ```bash
+   cd backend
+   npm install
+   ```
 
-3. **Database setup:**
-```bash
-cd backend
-npx prisma generate
-npx prisma migrate dev
-```
+2. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your database and JWT settings
+   ```
 
-## API Endpoints
+3. **Set up database**
+   ```bash
+   npx prisma generate
+   npx prisma migrate dev
+   ```
+
+4. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+### Frontend Setup
+
+1. **Install dependencies**
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+2. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+## 🌐 Application URLs & Access Points
+
+### Production URLs (Docker)
+- **Main Application**: http://localhost:3000
+- **Backend API**: http://localhost:3001
+- **API Documentation**: http://localhost:3001/api (available endpoints)
+
+### Development URLs (Local)
+- **Frontend Dev Server**: http://localhost:5173
+- **Backend Dev Server**: http://localhost:3001
+
+### Database Access
+- **PostgreSQL**: localhost:5432
+- **Username**: postgres
+- **Password**: password
+- **Database**: portfolio_db
+
+## 📱 Features
+
+- **🔐 User Authentication**: JWT-based login/logout system
+- **📊 Portfolio Overview**: Dashboard with asset allocation and performance metrics
+- **💼 Investment Management**: Add, edit, and delete investments
+- **📈 Transaction History**: Track buy/sell transactions with pagination
+- **📊 Real-time Analytics**: Performance charts and metrics
+- **📱 Responsive Design**: Works on desktop and mobile devices
+- **🎨 Modern UI**: Clean, professional interface with Tailwind CSS
+
+## 🛡️ Security Features
+
+- **JWT Authentication**: Secure token-based authentication
+- **Protected Routes**: API endpoints require valid authentication
+- **Input Validation**: Comprehensive validation using Zod
+- **CORS Protection**: Configured for secure cross-origin requests
+- **Error Handling**: Graceful error handling and logging
+
+## 🔌 API Endpoints
 
 ### Authentication
-- `POST /api/auth/register` - User registration
+- `POST /api/auth/register` - Register new user
 - `POST /api/auth/login` - User login
 - `POST /api/auth/logout` - User logout
+- `GET /api/auth/verify` - Verify JWT token
 
 ### Portfolio
-- `GET /api/portfolio` - Get user's portfolio overview
+- `GET /api/portfolio` - Get portfolio overview
+- `GET /api/portfolio/summary` - Get portfolio summary
+
+### Investments
 - `GET /api/investments` - Get all investments
-- `POST /api/investments` - Add new investment
+- `GET /api/investments/:id` - Get specific investment
+- `POST /api/investments` - Create new investment
 - `PUT /api/investments/:id` - Update investment
 - `DELETE /api/investments/:id` - Delete investment
 
 ### Transactions
-- `GET /api/transactions` - Get transaction history
-- `POST /api/transactions` - Add new transaction
+- `GET /api/transactions` - Get transactions (with pagination)
+- `GET /api/transactions/:id` - Get specific transaction
+- `POST /api/transactions` - Create new transaction
+- `GET /api/transactions/stats` - Get transaction statistics
 
-## Database Schema
+## 🏗️ Project Structure
 
-### Users
-- id (UUID)
-- email (unique)
-- password (hashed)
-- name
-- createdAt
-- updatedAt
-
-### Investments
-- id (UUID)
-- userId (foreign key)
-- symbol
-- name
-- type (STOCK, BOND, MUTUAL_FUND)
-- quantity
-- purchasePrice
-- currentPrice
-- createdAt
-- updatedAt
-
-### Transactions
-- id (UUID)
-- userId (foreign key)
-- investmentId (foreign key)
-- type (BUY, SELL)
-- quantity
-- price
-- date
-- createdAt
-
-## Environment Variables
-
-Create `.env` files in both frontend and backend directories:
-
-**Backend (.env):**
 ```
-DATABASE_URL="postgresql://postgres:password@db:5432/portfolio"
-JWT_SECRET="your-super-secret-jwt-key"
-PORT=5000
+maybank-project/
+├── backend/                 # Node.js/Express API
+│   ├── src/
+│   │   ├── routes/         # API routes
+│   │   ├── middleware/     # Auth & error handling
+│   │   ├── services/       # Business logic
+│   │   └── utils/          # Utilities
+│   ├── prisma/             # Database schema & migrations
+│   └── Dockerfile
+├── frontend/               # React application
+│   ├── src/
+│   │   ├── components/     # Reusable components
+│   │   ├── pages/          # Page components
+│   │   ├── services/       # API services
+│   │   ├── contexts/       # React contexts
+│   │   └── types/          # TypeScript types
+│   ├── config/             # Nginx configuration
+│   └── Dockerfile
+├── docker-compose.yml      # Multi-service setup
+└── README.md
 ```
 
-**Frontend (.env):**
+## 🚨 Troubleshooting
+
+### Common Issues
+
+1. **Port conflicts**: Ensure ports 3000, 3001, and 5432 are available
+2. **Database connection**: Wait for PostgreSQL to fully start before accessing the app
+3. **Build errors**: Use `docker-compose up --build` to rebuild containers
+4. **Permission issues**: Ensure Docker has proper permissions on your system
+
+### Reset Everything
+```bash
+# Stop and remove everything
+docker-compose down -v
+
+# Remove all images
+docker system prune -a
+
+# Start fresh
+docker-compose up --build -d
 ```
-VITE_API_URL=http://localhost:5000
-```
 
-## Usage
+## 🤖 Development Disclaimer
 
-1. **Register/Login:** Create an account or log in
-2. **View Portfolio:** See your investment summary on the dashboard
-3. **Add Investments:** Add stocks, bonds, or mutual funds
-4. **Track Transactions:** View your buy/sell history
-5. **Edit Investments:** Update existing investment details
+**AI-Assisted Development**: This application was developed with the assistance of GitHub Copilot and other AI coding tools to improve development efficiency and code quality. While AI tools were used to accelerate development, all code has been reviewed, tested, and validated to ensure proper functionality and security.
 
-## Docker Configuration
+**Benefits of AI-Assisted Development**:
+- Faster code generation and prototyping
+- Consistent coding patterns and best practices
+- Reduced development time for boilerplate code
+- Enhanced code quality through AI suggestions
+- Improved error handling and edge case coverage
 
-The application uses multi-stage Docker builds for optimization:
-- **Frontend:** Nginx-served static build
-- **Backend:** Node.js application
-- **Database:** PostgreSQL container
-- **All services** orchestrated with Docker Compose
-
-## Security Features
-
-- Password hashing with bcrypt
-- JWT token authentication
-- Protected API routes
-- Input validation and sanitization
-- CORS configuration
-
-## Performance Considerations
-
-- Frontend: Code splitting and lazy loading
-- Backend: Database indexing and query optimization
-- Caching strategies for frequently accessed data
-- Optimized Docker images
-
-## Future Enhancements
-
-- Real-time stock price updates
-- Portfolio analytics and charts
-- Email notifications
-- Export functionality
-- Mobile responsiveness improvements
-
-## Contributing
+## 📝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Built with modern web technologies and best practices
+- Enhanced development experience through AI-assisted coding tools
+- Designed for scalability and maintainability
+- Focused on user experience and performance
+
+---
+
+**Happy Portfolio Management! 🚀📈**

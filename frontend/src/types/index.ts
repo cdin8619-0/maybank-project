@@ -18,10 +18,13 @@ export interface Investment {
     currentPrice: string;
     createdAt: string;
     updatedAt: string;
+    currentValue?: string;
+    costBasis?: string;
+    returnValue?: string;
+    returnPercentage?: string;
     totalValue?: string;
     totalCost?: string;
     totalReturn?: string;
-    returnPercentage?: string;
     transactions?: Transaction[];
     _count?: {
         transactions: number;
