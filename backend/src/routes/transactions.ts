@@ -86,7 +86,7 @@ router.get('/', async (req: AuthRequest, res: Response) => {
         const totalPages = Math.ceil(totalCount / limit);
 
         res.json({
-            transactions: enrichedTransactions,
+            data: enrichedTransactions,
             pagination: {
                 currentPage: page,
                 totalPages,
