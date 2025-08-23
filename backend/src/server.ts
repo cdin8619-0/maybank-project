@@ -14,8 +14,8 @@ import { logger } from './utils/logger';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 const prisma = new PrismaClient();
+const PORT = Number(process.env.PORT) || 5000;
 
 app.use(helmet());
 app.use(cors({
@@ -42,16 +42,35 @@ app.use('*', (req, res) => {
 
 app.use(errorHandler);
 
-async function startServer() {
+async function startServer(initialPort: number = PORT) {
     try {
         await prisma.$connect();
         logger.info('Database connected successfully');
 
-        app.listen(PORT, () => {
-            logger.info(`Server is running on port ${PORT}`);
-        });
+        const listen = (port: number): Promise<void> => {
+            return new Promise((resolve, reject) => {
+                const server = app.listen(port)
+                    .on('listening', () => {
+                        logger.info(`Server running on port ${port}`);
+                        resolve();
+                    })
+                    .on('error', (err: NodeJS.ErrnoException) => {
+                        if (err.code === 'EADDRINUSE') {
+                            logger.error(`Port ${port} is already in use. Trying ${port + 1}`);
+                            server.close();
+                            listen(port + 1).then(resolve).catch(reject);
+                        } else {
+                            reject(err);
+                        }
+                    });
+            });
+        };
+
+        await listen(initialPort);
+
     } catch (error) {
         logger.error('Failed to start server:', error);
+        await prisma.$disconnect();
         process.exit(1);
     }
 }

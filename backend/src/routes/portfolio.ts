@@ -1,12 +1,20 @@
-import { Router, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
-import { authenticateToken, AuthRequest } from '../middleware/auth';
-import { logger } from '../utils/logger';
+import {Router, Response} from 'express';
+import {PrismaClient} from '@prisma/client';
+import {authenticateToken, AuthRequest} from '../middleware/auth';
+import {logger} from '../utils/logger';
 
 const router = Router();
 const prisma = new PrismaClient();
 
 router.use(authenticateToken);
+
+const toNumber = (decimal: any): number => {
+    if (typeof decimal === 'number') return decimal;
+    if (decimal && typeof decimal.toNumber === 'function') {
+        return decimal.toNumber();
+    }
+    return Number(decimal);
+};
 
 router.get('/', async (req: AuthRequest, res: Response) => {
     try {
@@ -53,9 +61,9 @@ router.get('/', async (req: AuthRequest, res: Response) => {
             percentage: number;
         }> = {};
 
-        const enrichedInvestments = investments.map(investment => {
-            const currentValue = Number(investment.quantity) * Number(investment.currentPrice);
-            const costBasis = Number(investment.quantity) * Number(investment.purchasePrice);
+        const enrichedInvestments = investments.map((investment: any) => {
+            const currentValue = toNumber(investment.quantity) * toNumber(investment.currentPrice);
+            const costBasis = toNumber(investment.quantity) * toNumber(investment.purchasePrice);
             const returnValue = currentValue - costBasis;
             const returnPercentage = costBasis > 0 ? (returnValue / costBasis) * 100 : 0;
 
@@ -100,7 +108,7 @@ router.get('/', async (req: AuthRequest, res: Response) => {
         };
 
         const sortedByPerformance = enrichedInvestments
-            .sort((a, b) => parseFloat(b.returnPercentage) - parseFloat(a.returnPercentage));
+            .sort((a: any, b: any) => parseFloat(b.returnPercentage) - parseFloat(a.returnPercentage));
 
         const topPerformers = sortedByPerformance.slice(0, 3);
         const worstPerformers = sortedByPerformance.slice(-3).reverse();
@@ -110,9 +118,9 @@ router.get('/', async (req: AuthRequest, res: Response) => {
             assetAllocation: portfolioByType,
             topPerformers,
             worstPerformers,
-            recentTransactions: recentTransactions.map(transaction => ({
+            recentTransactions: recentTransactions.map((transaction: any) => ({
                 ...transaction,
-                totalValue: (Number(transaction.quantity) * Number(transaction.price)).toFixed(2)
+                totalValue: (toNumber(transaction.quantity) * toNumber(transaction.price)).toFixed(2)
             })),
             investments: enrichedInvestments,
         });
@@ -132,13 +140,13 @@ router.get('/summary', async (req: AuthRequest, res: Response) => {
             investments
         ] = await Promise.all([
             prisma.investment.count({
-                where: { userId: req.user!.id }
+                where: {userId: req.user!.id}
             }),
             prisma.transaction.count({
-                where: { userId: req.user!.id }
+                where: {userId: req.user!.id}
             }),
             prisma.investment.findMany({
-                where: { userId: req.user!.id },
+                where: {userId: req.user!.id},
                 select: {
                     quantity: true,
                     purchasePrice: true,
@@ -153,9 +161,9 @@ router.get('/summary', async (req: AuthRequest, res: Response) => {
 
         const typeBreakdown: Record<string, number> = {};
 
-        investments.forEach(investment => {
-            const value = Number(investment.quantity) * Number(investment.currentPrice);
-            const cost = Number(investment.quantity) * Number(investment.purchasePrice);
+        investments.forEach((investment: any) => {
+            const value = toNumber(investment.quantity) * toNumber(investment.currentPrice);
+            const cost = toNumber(investment.quantity) * toNumber(investment.purchasePrice);
 
             totalValue += value;
             totalCost += cost;
