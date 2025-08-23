@@ -1,4 +1,4 @@
-FROM node:18-alpine AS base
+FROM node:20-alpine AS base
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ FROM base AS development
 RUN npm ci
 COPY . .
 RUN npx prisma generate
-EXPOSE 5000
+EXPOSE 3001
 CMD ["npm", "run", "dev"]
 
 FROM base AS build
@@ -19,11 +19,11 @@ COPY . .
 RUN npx prisma generate
 RUN npm run build
 
-FROM node:18-alpine AS production
+FROM node:20-alpine AS production
 
 WORKDIR /app
 
-RUN apk add --no-cache curl
+RUN apk add --no-cache curl openssl
 
 COPY package*.json ./
 RUN npm ci --only=production
@@ -38,10 +38,10 @@ RUN adduser -S nextjs -u 1001
 RUN chown -R nextjs:nodejs /app
 USER nextjs
 
-EXPOSE 5000
+EXPOSE 3001
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:5000/health || exit 1
+  CMD curl -f http://localhost:3001/health || exit 1
 
-CMD ["npm", "start"]
+CMD ["node", "dist/server.js"]

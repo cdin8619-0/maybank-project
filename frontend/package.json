@@ -1,14 +1,42 @@
 {
-  "name": "maybank-project",
+  "name": "portfolio-frontend",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
+  "type": "module",
   "scripts": {
-    "build": "../node_modules/.bin/tsc"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@hookform/resolvers": "^3.1.1",
+    "axios": "^1.4.0",
+    "clsx": "^2.0.0",
+    "decimal.js": "^10.6.0",
+    "lucide-react": "^0.263.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.45.2",
+    "react-router-dom": "^6.14.2",
+    "recharts": "^2.7.2",
+    "sonner": "^0.6.2",
+    "tailwind-merge": "^1.14.0",
+    "zod": "^3.21.4"
+  },
   "devDependencies": {
-    "typescript": "^5.5.3"
-  },
-  "private": true
+    "@types/decimal.js": "^0.0.32",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "postcss": "^8.4.27",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  }
 }
