@@ -72,7 +72,7 @@ router.get('/', async (req: AuthRequest, res: Response) => {
         });
 
         res.json({
-            investments: enrichedInvestments,
+            data: enrichedInvestments,
             total: enrichedInvestments.length,
         });
     } catch (error) {
