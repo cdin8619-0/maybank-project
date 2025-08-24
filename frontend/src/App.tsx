@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { useAuth } from './hooks/useAuth';
 import { Toaster } from 'sonner';
@@ -13,6 +14,18 @@ import Layout from './components/Layout';
 import LoadingSpinner from './components/LoadingSpinner';
 import ProtectedRoute from './components/ProtectedRoute';
 
+const NavigationRefresh: React.FC = () => {
+    const location = useLocation();
+    
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            window.dispatchEvent(new CustomEvent('navigation-change', { detail: location }));
+        }
+    }, [location]);
+    
+    return null;
+};
+
 function AppRoutes() {
     const { user, loading } = useAuth();
 
@@ -26,8 +39,8 @@ function AppRoutes() {
 
     return (
         <Router>
+            <NavigationRefresh />
             <Routes>
-                {/* Public Routes */}
                 <Route
                     path="/login"
                     element={user ? <Navigate to="/dashboard" replace /> : <LoginPage />}
@@ -37,7 +50,6 @@ function AppRoutes() {
                     element={user ? <Navigate to="/dashboard" replace /> : <RegisterPage />}
                 />
 
-                {/* Protected Routes */}
                 <Route path="/" element={<ProtectedRoute />}>
                     <Route path="/" element={<Layout />}>
                         <Route index element={<Navigate to="/dashboard" replace />} />
@@ -47,7 +59,6 @@ function AppRoutes() {
                     </Route>
                 </Route>
 
-                {/* Catch all route */}
                 <Route path="*" element={<Navigate to="/dashboard" replace />} />
             </Routes>
         </Router>
