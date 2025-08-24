@@ -29,7 +29,7 @@ A modern portfolio management application built with React, Node.js, TypeScript,
    ```
 
 3. **Access the application**
-   - **Frontend Application**: http://localhost:3000
+   - **Frontend Application**: http://localhost:5173
    - **Backend API**: http://localhost:3001
    - **Database**: localhost:5432 (PostgreSQL)
 
