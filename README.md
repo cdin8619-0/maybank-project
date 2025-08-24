@@ -2,6 +2,9 @@
 
 A modern portfolio management application built with React, Node.js, TypeScript, and PostgreSQL. This application provides a comprehensive solution for managing investment portfolios with real-time analytics and transaction tracking.
 
+<img width="3420" height="2888" alt="image" src="https://github.com/user-attachments/assets/2b1b0f8a-4a08-4b69-98f5-4bba5019d191" />
+
+
 ## Quick Start with Docker Compose
 
 ### Prerequisites
