@@ -41,7 +41,6 @@ const LoginPage: React.FC = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-indigo-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
-                {/* Header */}
                 <div className="text-center">
                     <div className="flex items-center justify-center mb-6">
                         <div className="bg-primary-600 rounded-lg p-3">
@@ -56,10 +55,8 @@ const LoginPage: React.FC = () => {
                     </p>
                 </div>
 
-                {/* Login Form */}
                 <div className="bg-white rounded-lg shadow-soft p-8">
                     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-                        {/* Email Field */}
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                                 Email address
@@ -78,7 +75,6 @@ const LoginPage: React.FC = () => {
                             )}
                         </div>
 
-                        {/* Password Field */}
                         <div>
                             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
                                 Password
@@ -110,7 +106,6 @@ const LoginPage: React.FC = () => {
                             )}
                         </div>
 
-                        {/* Submit Button */}
                         <div>
                             <button
                                 type="submit"
@@ -126,7 +121,6 @@ const LoginPage: React.FC = () => {
                         </div>
                     </form>
 
-                    {/* Sign up link */}
                     <div className="mt-6 text-center">
                         <p className="text-sm text-gray-600">
                             Don't have an account?{' '}
@@ -138,14 +132,6 @@ const LoginPage: React.FC = () => {
                             </Link>
                         </p>
                     </div>
-                </div>
-
-                {/* Demo credentials */}
-                <div className="bg-gray-50 rounded-lg p-4 text-center">
-                    <p className="text-xs text-gray-500 mb-2">Demo credentials:</p>
-                    <p className="text-xs text-gray-600">
-                        Email: demo@example.com | Password: demo123
-                    </p>
                 </div>
             </div>
         </div>

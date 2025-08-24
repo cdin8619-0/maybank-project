@@ -189,9 +189,9 @@ docker system prune -a
 docker-compose up --build -d
 ```
 
-## 🤖 Development Disclaimer
+## 🤖 AI Development Disclaimer
 
-**AI-Assisted Development**: This application was developed with the assistance of GitHub Copilot and other AI coding tools to improve development efficiency and code quality. While AI tools were used to accelerate development, all code has been reviewed, tested, and validated to ensure proper functionality and security.
+**AI-Assisted Development**: This application was developed with the assistance of generative AI tools (GitHub Copilot) to improve development efficiency. All code has been reviewed, tested, and validated to ensure proper functionality and security.
 
 
 ## Contributing
@@ -206,7 +206,6 @@ docker-compose up --build -d
 ## Acknowledgments
 
 - Built with modern web technologies and best practices
-- Enhanced development experience through AI-assisted coding tools
 - Designed for scalability and maintainability
 - Focused on user experience and performance
 
