@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { toast } from 'sonner';
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const BASE_URL = 'http://localhost:3001';
 
 class ApiClient {
     private client: AxiosInstance;
@@ -21,7 +21,7 @@ class ApiClient {
     private setupInterceptors() {
         this.client.interceptors.request.use(
             (config) => {
-                const token = localStorage.getItem('token');
+                const token = (globalThis as any).localStorage?.getItem('token');
                 if (token) {
                     config.headers.Authorization = `Bearer ${token}`;
                 }
@@ -38,9 +38,9 @@ class ApiClient {
             },
             (error: AxiosError) => {
                 if (error.response?.status === 401) {
-                    localStorage.removeItem('token');
-                    window.location.href = '/login';
-                } else if (error.response?.status >= 500) {
+                    (globalThis as any).localStorage?.removeItem('token');
+                    (globalThis as any).location.href = '/login';
+                } else if (error.response?.status && error.response.status >= 500) {
                     toast.error('Server error. Please try again later.');
                 } else if (error.code === 'NETWORK_ERROR') {
                     toast.error('Network error. Please check your connection.');

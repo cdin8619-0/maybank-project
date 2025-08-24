@@ -2,13 +2,13 @@
 
 A modern portfolio management application built with React, Node.js, TypeScript, and PostgreSQL. This application provides a comprehensive solution for managing investment portfolios with real-time analytics and transaction tracking.
 
-## 🚀 Quick Start with Docker Compose
+## Quick Start with Docker Compose
 
 ### Prerequisites
 - **Docker** (version 20.10 or higher)
 - **Docker Compose** (version 2.0 or higher)
 
-### 🐳 Running the Application
+### Running the Application
 
 1. **Clone the repository**
    ```bash
@@ -26,45 +26,16 @@ A modern portfolio management application built with React, Node.js, TypeScript,
    ```
 
 3. **Access the application**
-   - **🌐 Frontend Application**: http://localhost:3000
-   - **🔌 Backend API**: http://localhost:3001
-   - **🗄️ Database**: localhost:5432 (PostgreSQL)
+   - **Frontend Application**: http://localhost:3000
+   - **Backend API**: http://localhost:3001
+   - **Database**: localhost:5432 (PostgreSQL)
 
 4. **First-time setup**
    - Navigate to http://localhost:3000
    - Click "Register" to create your first account
    - Login and start building your portfolio
 
-### 🛠️ Docker Commands Reference
-
-```bash
-# Start all services
-docker-compose up -d
-
-# Start with rebuild (recommended for first run)
-docker-compose up --build -d
-
-# View running services
-docker-compose ps
-
-# View logs
-docker-compose logs -f
-
-# Stop all services
-docker-compose down
-
-# Stop and remove volumes (database data)
-docker-compose down -v
-
-# Restart a specific service
-docker-compose restart frontend
-docker-compose restart backend
-
-# Rebuild and restart a specific service
-docker-compose up --build frontend -d
-```
-
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 This application is built using a microservices architecture with Docker containers:
 
@@ -72,7 +43,7 @@ This application is built using a microservices architecture with Docker contain
 - **Backend Container**: Node.js/Express API with Prisma ORM
 - **Database Container**: PostgreSQL with persistent storage
 
-## 🔧 Development Setup (Alternative to Docker)
+## Development Setup (Alternative to Docker)
 
 ### Backend Setup
 
@@ -112,7 +83,7 @@ This application is built using a microservices architecture with Docker contain
    npm run dev
    ```
 
-## 🌐 Application URLs & Access Points
+## Application URLs & Access Points
 
 ### Production URLs (Docker)
 - **Main Application**: http://localhost:3000
@@ -129,17 +100,17 @@ This application is built using a microservices architecture with Docker contain
 - **Password**: password
 - **Database**: portfolio_db
 
-## 📱 Features
+## Features
 
-- **🔐 User Authentication**: JWT-based login/logout system
-- **📊 Portfolio Overview**: Dashboard with asset allocation and performance metrics
-- **💼 Investment Management**: Add, edit, and delete investments
-- **📈 Transaction History**: Track buy/sell transactions with pagination
-- **📊 Real-time Analytics**: Performance charts and metrics
-- **📱 Responsive Design**: Works on desktop and mobile devices
-- **🎨 Modern UI**: Clean, professional interface with Tailwind CSS
+- **User Authentication**: JWT-based login/logout system
+- **Portfolio Overview**: Dashboard with asset allocation and performance metrics
+- **Investment Management**: Add, edit, and delete investments
+- **Transaction History**: Track buy/sell transactions with pagination
+- **Real-time Analytics**: Performance charts and metrics
+- **Responsive Design**: Works on desktop and mobile devices
+- **Modern UI**: Clean, professional interface with Tailwind CSS
 
-## 🛡️ Security Features
+## Security Features
 
 - **JWT Authentication**: Secure token-based authentication
 - **Protected Routes**: API endpoints require valid authentication
@@ -147,7 +118,7 @@ This application is built using a microservices architecture with Docker contain
 - **CORS Protection**: Configured for secure cross-origin requests
 - **Error Handling**: Graceful error handling and logging
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### Authentication
 - `POST /api/auth/register` - Register new user
@@ -172,7 +143,7 @@ This application is built using a microservices architecture with Docker contain
 - `POST /api/transactions` - Create new transaction
 - `GET /api/transactions/stats` - Get transaction statistics
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 maybank-project/
@@ -197,7 +168,7 @@ maybank-project/
 └── README.md
 ```
 
-## 🚨 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -222,14 +193,8 @@ docker-compose up --build -d
 
 **AI-Assisted Development**: This application was developed with the assistance of GitHub Copilot and other AI coding tools to improve development efficiency and code quality. While AI tools were used to accelerate development, all code has been reviewed, tested, and validated to ensure proper functionality and security.
 
-**Benefits of AI-Assisted Development**:
-- Faster code generation and prototyping
-- Consistent coding patterns and best practices
-- Reduced development time for boilerplate code
-- Enhanced code quality through AI suggestions
-- Improved error handling and edge case coverage
 
-## 📝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -237,11 +202,8 @@ docker-compose up --build -d
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Built with modern web technologies and best practices
 - Enhanced development experience through AI-assisted coding tools
@@ -250,4 +212,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Happy Portfolio Management! 🚀📈**
+**Happy Portfolio Management!**
