@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  investments Investment[]
+  transactions Transaction[]
+
+  @@map("users")
+}
+
+enum InvestmentType {
+  STOCK
+  BOND
+  MUTUAL_FUND
+  ETF
+  CRYPTOCURRENCY
+}
+
+model Investment {
+  id            String         @id @default(cuid())
+  userId        String
+  symbol        String
+  name          String
+  type          InvestmentType
+  quantity      Decimal        @db.Decimal(15, 8)
+  purchasePrice Decimal        @db.Decimal(15, 2)
+  currentPrice  Decimal        @db.Decimal(15, 2)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@map("investments")
+  @@index([userId])
+}
+
+enum TransactionType {
+  BUY
+  SELL
+}
+
+model Transaction {
+  id           String          @id @default(cuid())
+  userId       String
+  investmentId String
+  type         TransactionType
+  quantity     Decimal         @db.Decimal(15, 8)
+  price        Decimal         @db.Decimal(15, 2)
+  date         DateTime        @default(now())
+  createdAt    DateTime        @default(now())
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  investment Investment @relation(fields: [investmentId], references: [id], onDelete: Cascade)
+
+  @@map("transactions")
+  @@index([userId])
+  @@index([investmentId])
+  @@index([date])
+}
