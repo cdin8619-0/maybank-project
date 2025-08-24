@@ -31,14 +31,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     useEffect(() => {
         const initializeAuth = async () => {
             try {
-                const token = localStorage.getItem('token');
+                const token = (globalThis as any).localStorage?.getItem('token');
                 if (token) {
                     const userData = await authService.verifyToken();
                     setUser(userData.user);
                 }
             } catch (error) {
-                console.error('Token verification failed:', error);
-                localStorage.removeItem('token');
+                (globalThis as any).console?.error('Token verification failed:', error);
+                (globalThis as any).localStorage?.removeItem('token');
             } finally {
                 setLoading(false);
             }
@@ -51,7 +51,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setLoading(true);
         try {
             const response = await authService.login(email, password);
-            localStorage.setItem('token', response.token);
+            (globalThis as any).localStorage?.setItem('token', response.token);
             setUser(response.user);
         } catch (error) {
             throw error;
@@ -64,7 +64,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setLoading(true);
         try {
             const response = await authService.register(name, email, password);
-            localStorage.setItem('token', response.token);
+            (globalThis as any).localStorage?.setItem('token', response.token);
             setUser(response.user);
         } catch (error) {
             throw error;
@@ -78,9 +78,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         try {
             await authService.logout();
         } catch (error) {
-            console.error('Logout error:', error);
+            (globalThis as any).console?.error('Logout error:', error);
         } finally {
-            localStorage.removeItem('token');
+            (globalThis as any).localStorage?.removeItem('token');
             setUser(null);
             setLoading(false);
         }
